@@ -13,6 +13,9 @@
 		FF1DF52B272DB82200042CD8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF1DF52A272DB82200042CD8 /* Preview Assets.xcassets */; };
 		FF1DF52D272DB82200042CD8 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1DF52C272DB82200042CD8 /* Persistence.swift */; };
 		FF1DF530272DB82200042CD8 /* GHKanban.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FF1DF52E272DB82200042CD8 /* GHKanban.xcdatamodeld */; };
+		FF1DF538272DC0C600042CD8 /* SearchMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1DF537272DC0C600042CD8 /* SearchMenuViewModel.swift */; };
+		FF1DF53A272DC0D200042CD8 /* SearchMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1DF539272DC0D200042CD8 /* SearchMenuView.swift */; };
+		FF1DF53D272DC10B00042CD8 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1DF53C272DC10B00042CD8 /* Repository.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +26,9 @@
 		FF1DF52A272DB82200042CD8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FF1DF52C272DB82200042CD8 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		FF1DF52F272DB82200042CD8 /* GHKanban.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GHKanban.xcdatamodel; sourceTree = "<group>"; };
+		FF1DF537272DC0C600042CD8 /* SearchMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMenuViewModel.swift; sourceTree = "<group>"; };
+		FF1DF539272DC0D200042CD8 /* SearchMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMenuView.swift; sourceTree = "<group>"; };
+		FF1DF53C272DC10B00042CD8 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +61,7 @@
 		FF1DF522272DB82000042CD8 /* GHKanban */ = {
 			isa = PBXGroup;
 			children = (
+				FF1DF536272DC0AD00042CD8 /* SearchMenu */,
 				FF1DF523272DB82000042CD8 /* GHKanbanApp.swift */,
 				FF1DF525272DB82000042CD8 /* ContentView.swift */,
 				FF1DF527272DB82200042CD8 /* Assets.xcassets */,
@@ -71,6 +78,24 @@
 				FF1DF52A272DB82200042CD8 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		FF1DF536272DC0AD00042CD8 /* SearchMenu */ = {
+			isa = PBXGroup;
+			children = (
+				FF1DF53B272DC0F800042CD8 /* Models */,
+				FF1DF537272DC0C600042CD8 /* SearchMenuViewModel.swift */,
+				FF1DF539272DC0D200042CD8 /* SearchMenuView.swift */,
+			);
+			path = SearchMenu;
+			sourceTree = "<group>";
+		};
+		FF1DF53B272DC0F800042CD8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FF1DF53C272DC10B00042CD8 /* Repository.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -143,9 +168,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF1DF53D272DC10B00042CD8 /* Repository.swift in Sources */,
 				FF1DF52D272DB82200042CD8 /* Persistence.swift in Sources */,
+				FF1DF53A272DC0D200042CD8 /* SearchMenuView.swift in Sources */,
 				FF1DF526272DB82000042CD8 /* ContentView.swift in Sources */,
 				FF1DF524272DB82000042CD8 /* GHKanbanApp.swift in Sources */,
+				FF1DF538272DC0C600042CD8 /* SearchMenuViewModel.swift in Sources */,
 				FF1DF530272DB82200042CD8 /* GHKanban.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

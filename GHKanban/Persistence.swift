@@ -2,7 +2,7 @@
 //  Persistence.swift
 //  GHKanban
 //
-//  Created by Alten on 30/10/21.
+//  Created by Diego on 30/10/21.
 //
 
 import CoreData
