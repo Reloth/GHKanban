@@ -13,7 +13,7 @@ struct GHKanbanApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SearchMenuView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
