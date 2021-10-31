@@ -16,12 +16,13 @@ class SearchMenuViewModel: ObservableObject {
         self.getStoredRepos()
     }
     
-    func storeRepository(repository: Repository) {
-        self.storedRepositories.append(repository)
-    }
+//    func storeRepository(repository: Repository) {
+//        self.storedRepositories.append(repository)
+//    }
     
     func removeRepository(index: Int) {
-        self.storedRepositories.remove(at: index)
+        PersistenceController.shared.deleteRepository(repository: storedRepositories[index])
+        self.getStoredRepos()
     }
     
     func getStoredRepos() {

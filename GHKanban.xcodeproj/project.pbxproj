@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		FF1DF524272DB82000042CD8 /* GHKanbanApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1DF523272DB82000042CD8 /* GHKanbanApp.swift */; };
-		FF1DF526272DB82000042CD8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1DF525272DB82000042CD8 /* ContentView.swift */; };
 		FF1DF528272DB82200042CD8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF1DF527272DB82200042CD8 /* Assets.xcassets */; };
 		FF1DF52B272DB82200042CD8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF1DF52A272DB82200042CD8 /* Preview Assets.xcassets */; };
 		FF1DF52D272DB82200042CD8 /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1DF52C272DB82200042CD8 /* Persistence.swift */; };
@@ -27,7 +26,6 @@
 /* Begin PBXFileReference section */
 		FF1DF520272DB82000042CD8 /* GHKanban.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GHKanban.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF1DF523272DB82000042CD8 /* GHKanbanApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GHKanbanApp.swift; sourceTree = "<group>"; };
-		FF1DF525272DB82000042CD8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		FF1DF527272DB82200042CD8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF1DF52A272DB82200042CD8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		FF1DF52C272DB82200042CD8 /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
@@ -74,7 +72,6 @@
 			isa = PBXGroup;
 			children = (
 				FF1DF523272DB82000042CD8 /* GHKanbanApp.swift */,
-				FF1DF525272DB82000042CD8 /* ContentView.swift */,
 				FF1DF527272DB82200042CD8 /* Assets.xcassets */,
 				FF1DF52C272DB82200042CD8 /* Persistence.swift */,
 				FF1DF52E272DB82200042CD8 /* GHKanban.xcdatamodeld */,
@@ -217,7 +214,6 @@
 				FF1DF53A272DC0D200042CD8 /* SearchMenuView.swift in Sources */,
 				FF1DF55C272EFCD200042CD8 /* Issue+CoreDataProperties.swift in Sources */,
 				FF1DF559272EFCD200042CD8 /* Repository+CoreDataClass.swift in Sources */,
-				FF1DF526272DB82000042CD8 /* ContentView.swift in Sources */,
 				FF1DF544272DE24600042CD8 /* KanbanViewModel.swift in Sources */,
 				FF1DF524272DB82000042CD8 /* GHKanbanApp.swift in Sources */,
 				FF1DF55A272EFCD200042CD8 /* Repository+CoreDataProperties.swift in Sources */,

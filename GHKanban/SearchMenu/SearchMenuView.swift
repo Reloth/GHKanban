@@ -58,8 +58,9 @@ fileprivate extension SearchMenuView {
                 repositoryKanbanCell(repo: repository)
             }
             .onDelete { indexSet in
-//                guard let index = indexSet.first else { return }
-//                self.searchMenuViewModel.removeRepository(index: index)
+                for index in indexSet {
+                    self.searchMenuViewModel.removeRepository(index: index)
+                }
             }
         }
         .listStyle(.plain)
@@ -75,7 +76,7 @@ fileprivate extension SearchMenuView {
             // !!!: Button should not be shown if repo is already stored
             if !self.searchMenuViewModel.storedRepositories.contains(where: { storedRepo in storedRepo == repo }) {
                 Button {
-                    self.searchMenuViewModel.storeRepository(repository: repo)
+//                    self.searchMenuViewModel.storeRepository(repository: repo)
                 } label: {
                     Image(systemName: "folder.fill.badge.plus")
                         .resizable()
