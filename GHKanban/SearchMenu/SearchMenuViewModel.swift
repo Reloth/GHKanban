@@ -31,6 +31,9 @@ class SearchMenuViewModel: ObservableObject {
             }
     }
     
+}
+
+extension SearchMenuViewModel {
     func addMockData() {
         let firstRepo = Repository(context: PersistenceController.shared.viewContext)
         firstRepo.name = "Third repo"
