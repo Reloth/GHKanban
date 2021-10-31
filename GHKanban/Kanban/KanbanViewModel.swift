@@ -17,7 +17,7 @@ class KanbanViewModel: ObservableObject {
     
     init(repository: Repository) {
         self.repository = repository
-        self.issues = repository.repoIssues
+        self.issues = repository.issues
         
         /// Need to subscribe the individual Issue objectWillChange for the Issues array to trigger a change when the Issue position has changed
         self.issues.forEach({
@@ -29,40 +29,18 @@ class KanbanViewModel: ObservableObject {
     }
     
     func increaseIssuePosition(issue: Issue) {
-        debugPrint("increaseIssuePosition")
-        guard let issueToChange = issues.first(where: { issueToFind in
-            issueToFind.id == issue.id
-        }) else { return }
-        
-        
-        if let newPosition = IssuePosition(rawValue: issue.issuePosition.rawValue + 1) {
-            issueToChange.issuePosition = newPosition
+        if let newPosition = IssuePosition(rawValue: issue.wrappedPosition.rawValue + 1) {
+            issue.wrappedPosition = newPosition
+            PersistenceController.shared.save()
         }
         
     }
     
     func decreaseIssuePosition(issue: Issue) {
-        debugPrint("decreaseIssuePosition")
-        guard let issueToChange = issues.first(where: { issueToFind in
-            issueToFind.id == issue.id
-        }) else { return }
-        
-        
-        if let newPosition = IssuePosition(rawValue: issue.issuePosition.rawValue - 1) {
-            issueToChange.issuePosition = newPosition
+        if let newPosition = IssuePosition(rawValue: issue.wrappedPosition.rawValue - 1) {
+            issue.wrappedPosition = newPosition
+            PersistenceController.shared.save()
         }
     }
     
-    func getTitleForSelectedTab(position: IssuePosition) -> String {
-        switch position {
-            case .backlog:
-                return "Backlog"
-            case .next:
-                return "Next"
-            case .doing:
-                return "Doing"
-            case .done:
-                return "Done"
-        }
-    }
 }

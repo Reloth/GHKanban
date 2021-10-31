@@ -9,6 +9,32 @@ import CoreData
 
 struct PersistenceController {
     static let shared = PersistenceController()
+    
+    let container: NSPersistentContainer
+    
+    var viewContext: NSManagedObjectContext {
+        return container.viewContext
+    }
+    
+    func save() {
+        do {
+            try viewContext.save()
+        }
+        catch {
+            viewContext.rollback()
+        }
+    }
+    
+    func getAllRepositories() -> [Repository] {
+        let request: NSFetchRequest<Repository> = Repository.fetchRequest()
+        do {
+            return try viewContext.fetch(request)
+        }
+        catch {
+            return [] 
+        }
+    }
+ 
 
     static var preview: PersistenceController = {
         let result = PersistenceController(inMemory: true)
@@ -27,8 +53,6 @@ struct PersistenceController {
         }
         return result
     }()
-
-    let container: NSPersistentContainer
 
     init(inMemory: Bool = false) {
         container = NSPersistentContainer(name: "GHKanban")

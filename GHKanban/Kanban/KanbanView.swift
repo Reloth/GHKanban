@@ -32,54 +32,66 @@ struct KanbanView: View {
 fileprivate extension KanbanView {
     
     var backlogView: some View {
-        List {
-            ForEach(kanbanViewModel.issues.filter{ $0.issuePosition == .backlog}) { issue in
-                issueCell(issue: issue)
+        VStack {
+            Text("Backlog")
+            List {
+                ForEach(kanbanViewModel.issues.filter{ $0.wrappedPosition == .backlog}) { issue in
+                    issueCell(issue: issue)
+                }
+                .buttonStyle(BorderlessButtonStyle())
             }
-            .buttonStyle(BorderlessButtonStyle())
+            .listStyle(.plain)
         }
-        .listStyle(.plain)
     }
     
     var nextView: some View {
-        List {
-            ForEach(kanbanViewModel.issues.filter{ $0.issuePosition == .next}) { issue in
-                issueCell(issue: issue)
+        VStack {
+            Text("Next")
+            List {
+                ForEach(kanbanViewModel.issues.filter{ $0.wrappedPosition == .next}) { issue in
+                    issueCell(issue: issue)
+                }
+                .buttonStyle(BorderlessButtonStyle())
             }
-            .buttonStyle(BorderlessButtonStyle())
+            .listStyle(.plain)
         }
-        .listStyle(.plain)
     }
     
     var doingView: some View {
-        List {
-            ForEach(kanbanViewModel.issues.filter{ $0.issuePosition == .doing}) { issue in
-                issueCell(issue: issue)
+        VStack {
+            Text("Doing")
+            List {
+                ForEach(kanbanViewModel.issues.filter{ $0.wrappedPosition == .doing}) { issue in
+                    issueCell(issue: issue)
+                }
+                .buttonStyle(BorderlessButtonStyle())
             }
-            .buttonStyle(BorderlessButtonStyle())
+            .listStyle(.plain)
         }
-        .listStyle(.plain)
     }
     
     var doneView: some View {
-        List {
-            ForEach(kanbanViewModel.issues.filter{ $0.issuePosition == .done}) { issue in
-                issueCell(issue: issue)
+        VStack {
+            Text("Done")
+            List {
+                ForEach(kanbanViewModel.issues.filter{ $0.wrappedPosition == .done}) { issue in
+                    issueCell(issue: issue)
+                }
+                .buttonStyle(BorderlessButtonStyle())
             }
-            .buttonStyle(BorderlessButtonStyle())
+            .listStyle(.plain)
         }
-        .listStyle(.plain)
     }
     
     func issueCell(issue: Issue) -> some View {
         HStack(alignment: .top) {
             VStack(alignment: .leading, spacing: 3) {
-                Text("**\(issue.issueTitle)**")
-                Text("*\(issue.issueInformation)*")
+                Text("**\(issue.wrappedTitle)**")
+                Text("*\(issue.wrappedInfo)*")
             }
             Spacer()
             VStack(alignment: .trailing, spacing: 30) {
-                if issue.issuePosition != .done {
+                if issue.wrappedPosition != .done {
                     Button {
                         kanbanViewModel.increaseIssuePosition(issue: issue)
                     } label: {
@@ -89,7 +101,7 @@ fileprivate extension KanbanView {
                             .foregroundColor(.green)
                     }
                 }
-                if issue.issuePosition != .backlog {
+                if issue.wrappedPosition != .backlog {
                     Button {
                         kanbanViewModel.decreaseIssuePosition(issue: issue)
                     } label: {
@@ -108,8 +120,8 @@ fileprivate extension KanbanView {
     }
 }
 
-struct KanbanView_Previews: PreviewProvider {
-    static var previews: some View {
-        KanbanView(repository: mockRepos.first!)
-    }
-}
+//struct KanbanView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        KanbanView(repository: mockRepos.first!)
+//    }
+//}

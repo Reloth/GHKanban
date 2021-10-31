@@ -25,6 +25,16 @@ struct SearchMenuView: View {
                 }
             }
             .navigationTitle("GH Kanban")
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button {
+                        searchMenuViewModel.addMockData()
+                    } label: {
+                        Text("Add")
+                    }
+
+                }
+            }
         }
     }
 }
@@ -34,9 +44,9 @@ fileprivate extension SearchMenuView {
     /// This tab shows all the Repositories from a given User
     var exploreTab: some View {
         List {
-            ForEach(mockRepos) { repository in
-                repositoryExplorerCell(repo: repository)
-            }
+//            ForEach(mockRepos) { repository in
+//                repositoryExplorerCell(repo: repository)
+//            }
         }
         .listStyle(.plain)
     }
@@ -48,8 +58,8 @@ fileprivate extension SearchMenuView {
                 repositoryKanbanCell(repo: repository)
             }
             .onDelete { indexSet in
-                guard let index = indexSet.first else { return }
-                self.searchMenuViewModel.removeRepository(index: index)
+//                guard let index = indexSet.first else { return }
+//                self.searchMenuViewModel.removeRepository(index: index)
             }
         }
         .listStyle(.plain)
@@ -58,8 +68,8 @@ fileprivate extension SearchMenuView {
     func repositoryExplorerCell(repo: Repository) -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 3) {
-                Text("**\(repo.repoName)**")
-                Text("*\(repo.repoAuthor)*")
+                Text("**\(repo.wrappedName)**")
+                Text("*\(repo.wrappedAuthor)*")
             }
             Spacer()
             // !!!: Button should not be shown if repo is already stored
@@ -84,8 +94,8 @@ fileprivate extension SearchMenuView {
             KanbanView(repository: repo)
         } label: {
             VStack(alignment: .leading, spacing: 3) {
-                Text("**\(repo.repoName)**")
-                Text("*\(repo.repoAuthor)*")
+                Text("**\(repo.wrappedName)**")
+                Text("*\(repo.wrappedAuthor)*")
             }
         }
     }
