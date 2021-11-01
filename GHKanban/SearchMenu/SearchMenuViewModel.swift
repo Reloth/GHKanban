@@ -7,18 +7,26 @@
 
 import Foundation
 
-/// This ViewModel is used to manage all necessary variables and functions for a SearchMenuView to operate (and later will be used to store locally the selected Repositories).
+/// This ViewModel is used to manage all necessary variables and functions for a SearchMenuView to operate, and also for retrieving and storing the Repositories and Issues.
 class SearchMenuViewModel: ObservableObject {
     
+    @Published var searchedRepositories: [RepositoryResponse] = []
     @Published var storedRepositories: [Repository] = []
+    
+    var offset: Int = 0
     
     init() {
         self.getStoredRepos()
     }
     
-//    func storeRepository(repository: Repository) {
-//        self.storedRepositories.append(repository)
-//    }
+    func storeRepository(repository: RepositoryResponse) async {
+        do {
+            try await self.getIssuesFromRepo(repository: repository)
+        }
+        catch {
+            debugPrint("error downloading issues - \(error)")
+        }
+    }
     
     func removeRepository(index: Int) {
         PersistenceController.shared.deleteRepository(repository: storedRepositories[index])
@@ -26,54 +34,73 @@ class SearchMenuViewModel: ObservableObject {
     }
     
     func getStoredRepos() {
-        self.storedRepositories = PersistenceController.shared.getAllRepositories()
-            .sorted {
-                $0.wrappedAuthor < $1.wrappedAuthor
-            }
+        DispatchQueue.main.async {
+            self.storedRepositories = PersistenceController.shared.getAllRepositories()
+                .sorted {
+                    $0.wrappedAuthor < $1.wrappedAuthor
+                }
+        }
     }
     
-}
-
-extension SearchMenuViewModel {
-    func addMockData() {
-        let firstRepo = Repository(context: PersistenceController.shared.viewContext)
-        firstRepo.name = "Third repo"
-        firstRepo.author = "Diego"
+    func refreshSearchedRepos() async {
+        self.offset = 0
+        self.searchedRepositories.removeAll()
+        await self.loadRepos()
+    }
+    
+    func loadRepos() async {
+        do {
+            try await reposAsyncLoad()
+        }
+        catch {
+            debugPrint("error downloading repos - \(error)")
+        }
+    }
+    
+    func reposAsyncLoad() async throws {
+        let url = URL(string: "https://api.github.com/repositories?since=\(offset)")!
+        let (data, response) = try await URLSession.shared.data(from: url)
         
-        let R1_01 = Issue(context: PersistenceController.shared.viewContext)
-        R1_01.title = "R3_01"
-        R1_01.info = "Something"
-        R1_01.position = 3
-        R1_01.id = UUID()
-        R1_01.parentRepository = firstRepo
+        guard (response as? HTTPURLResponse)?.statusCode == 200
+        else { return }
         
-        let R1_02 = Issue(context: PersistenceController.shared.viewContext)
-        R1_02.title = "R3_02"
-        R1_02.info = "Ugly colors"
-        R1_02.position = 0
-        R1_02.id = UUID()
-        R1_02.parentRepository = firstRepo
+        guard let decoded = try? JSONDecoder().decode([RepositoryResponse].self, from: data)
+        else { return }
         
+        if let newOffset = decoded.last?.idNum {
+            self.offset = newOffset
+        }
         
-        let secondRepo = Repository(context: PersistenceController.shared.viewContext)
-        secondRepo.name = "Second repo"
-        secondRepo.author = "Diego"
+        DispatchQueue.main.async {
+            self.searchedRepositories.append(contentsOf: decoded)
+        }
+    }
+    
+    func getIssuesFromRepo(repository: RepositoryResponse) async throws {
+        let url = URL(string: "https://api.github.com/repos/\(repository.author)/\(repository.name)/issues")!
+        let (data, response) = try await URLSession.shared.data(from: url)
         
-        let R2_01 = Issue(context: PersistenceController.shared.viewContext)
-        R2_01.title = "R2_01"
-        R2_01.info = "App crashes on load"
-        R2_01.position = 3
-        R2_01.id = UUID()
-        R2_01.parentRepository = secondRepo
+        guard (response as? HTTPURLResponse)?.statusCode == 200
+        else { return }
         
-        let R2_02 = Issue(context: PersistenceController.shared.viewContext)
-        R2_02.title = "R2_02"
-        R2_02.info = "Ugly colors"
-        R2_02.position = 0
-        R2_02.id = UUID()
-        R2_02.parentRepository = secondRepo
+        guard let decoded = try? JSONDecoder().decode([IssueResponse].self, from: data)
+        else { return }
         
+        let newRepository = Repository(context: PersistenceController.shared.viewContext)
+        newRepository.name = repository.name
+        newRepository.author = repository.author
+        newRepository.idNum = Int32(repository.idNum)
+        
+        decoded.forEach { issueResponse in
+            let newIssue = Issue(context: PersistenceController.shared.viewContext)
+            newIssue.title = issueResponse.title
+            newIssue.info = issueResponse.body
+            newIssue.position = 0
+            newIssue.idNum = Int32(issueResponse.idNum)
+            newIssue.parentRepository = newRepository
+        }
         PersistenceController.shared.save()
         self.getStoredRepos()
     }
+    
 }

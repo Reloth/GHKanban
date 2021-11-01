@@ -25,15 +25,8 @@ struct SearchMenuView: View {
                 }
             }
             .navigationTitle("GH Kanban")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        searchMenuViewModel.addMockData()
-                    } label: {
-                        Text("Add")
-                    }
-
-                }
+            .task {
+                await searchMenuViewModel.loadRepos()
             }
         }
     }
@@ -41,12 +34,20 @@ struct SearchMenuView: View {
 
 fileprivate extension SearchMenuView {
     
-    /// This tab shows all the Repositories from a given User
+    /// This tab shows all the public Repositories from Github
     var exploreTab: some View {
         List {
-//            ForEach(mockRepos) { repository in
-//                repositoryExplorerCell(repo: repository)
-//            }
+            ForEach(self.searchMenuViewModel.searchedRepositories, id: \.self) { repository in
+                repositoryExplorerCell(repository: repository)
+                    .task {
+                        if repository == self.searchMenuViewModel.searchedRepositories.last {
+                            await self.searchMenuViewModel.loadRepos()
+                        }
+                    }
+            }
+        }
+        .refreshable {
+            await self.searchMenuViewModel.refreshSearchedRepos()
         }
         .listStyle(.plain)
     }
@@ -55,7 +56,7 @@ fileprivate extension SearchMenuView {
     var localTab: some View {
         List {
             ForEach(self.searchMenuViewModel.storedRepositories) { repository in
-                repositoryKanbanCell(repo: repository)
+                repositoryKanbanCell(repository: repository)
             }
             .onDelete { indexSet in
                 for index in indexSet {
@@ -66,17 +67,22 @@ fileprivate extension SearchMenuView {
         .listStyle(.plain)
     }
     
-    func repositoryExplorerCell(repo: Repository) -> some View {
+    /// Cell for the explore tab, the add to local button is hidden if the Repository is already stored
+    func repositoryExplorerCell(repository: RepositoryResponse) -> some View {
         HStack {
             VStack(alignment: .leading, spacing: 3) {
-                Text("**\(repo.wrappedName)**")
-                Text("*\(repo.wrappedAuthor)*")
+                Text("**\(repository.name)**")
+                Text("*\(repository.author)*")
             }
             Spacer()
             // !!!: Button should not be shown if repo is already stored
-            if !self.searchMenuViewModel.storedRepositories.contains(where: { storedRepo in storedRepo == repo }) {
+            if !self.searchMenuViewModel.storedRepositories.contains(where: { storedRepo in
+                debugPrint("searchRepos: \(repository.idNum) -- storedRepo: \(storedRepo.idNum)")
+                return storedRepo.idNum == repository.idNum }) {
                 Button {
-//                    self.searchMenuViewModel.storeRepository(repository: repo)
+                    Task.init {
+                        await self.searchMenuViewModel.storeRepository(repository: repository)
+                    }
                 } label: {
                     Image(systemName: "folder.fill.badge.plus")
                         .resizable()
@@ -90,13 +96,14 @@ fileprivate extension SearchMenuView {
         .padding(.vertical, 10)
     }
     
-    func repositoryKanbanCell(repo: Repository) -> some View {
+    /// Cell for the local tab, gets you to the Kanban on tap
+    func repositoryKanbanCell(repository: Repository) -> some View {
         NavigationLink {
-            KanbanView(repository: repo)
+            KanbanView(repository: repository)
         } label: {
             VStack(alignment: .leading, spacing: 3) {
-                Text("**\(repo.wrappedName)**")
-                Text("*\(repo.wrappedAuthor)*")
+                Text("**\(repository.wrappedName)**")
+                Text("*\(repository.wrappedAuthor)*")
             }
         }
     }

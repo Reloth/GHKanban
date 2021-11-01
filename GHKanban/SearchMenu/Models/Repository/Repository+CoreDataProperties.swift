@@ -18,6 +18,7 @@ extension Repository {
 
     @NSManaged public var name: String?
     @NSManaged public var author: String?
+    @NSManaged public var idNum: Int32
     @NSManaged public var issue: NSSet?
     
     public var wrappedName: String {

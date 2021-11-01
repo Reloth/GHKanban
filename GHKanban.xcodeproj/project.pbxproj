@@ -21,6 +21,8 @@
 		FF1DF55A272EFCD200042CD8 /* Repository+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1DF556272EFCD200042CD8 /* Repository+CoreDataProperties.swift */; };
 		FF1DF55B272EFCD200042CD8 /* Issue+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1DF557272EFCD200042CD8 /* Issue+CoreDataClass.swift */; };
 		FF1DF55C272EFCD200042CD8 /* Issue+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1DF558272EFCD200042CD8 /* Issue+CoreDataProperties.swift */; };
+		FF1DF560272F24E600042CD8 /* RepositoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF1DF55F272F24E600042CD8 /* RepositoryResponse.swift */; };
+		FFDBBE9B272F57D900444F65 /* IssueResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFDBBE9A272F57D900444F65 /* IssueResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		FF1DF556272EFCD200042CD8 /* Repository+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Repository+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		FF1DF557272EFCD200042CD8 /* Issue+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Issue+CoreDataClass.swift"; sourceTree = "<group>"; };
 		FF1DF558272EFCD200042CD8 /* Issue+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Issue+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		FF1DF55F272F24E600042CD8 /* RepositoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryResponse.swift; sourceTree = "<group>"; };
+		FFDBBE9A272F57D900444F65 /* IssueResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,7 @@
 		FF1DF53B272DC0F800042CD8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FFDBBE99272F57C100444F65 /* Responses */,
 				FF1DF55D272F16DD00042CD8 /* Repository */,
 				FF1DF55E272F16E700042CD8 /* Issue */,
 				FF1DF545272ED35200042CD8 /* IssuePosition.swift */,
@@ -135,6 +140,15 @@
 				FF1DF558272EFCD200042CD8 /* Issue+CoreDataProperties.swift */,
 			);
 			path = Issue;
+			sourceTree = "<group>";
+		};
+		FFDBBE99272F57C100444F65 /* Responses */ = {
+			isa = PBXGroup;
+			children = (
+				FF1DF55F272F24E600042CD8 /* RepositoryResponse.swift */,
+				FFDBBE9A272F57D900444F65 /* IssueResponse.swift */,
+			);
+			path = Responses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -209,6 +223,7 @@
 			files = (
 				FF1DF542272DDC4700042CD8 /* KanbanView.swift in Sources */,
 				FF1DF55B272EFCD200042CD8 /* Issue+CoreDataClass.swift in Sources */,
+				FFDBBE9B272F57D900444F65 /* IssueResponse.swift in Sources */,
 				FF1DF546272ED35200042CD8 /* IssuePosition.swift in Sources */,
 				FF1DF52D272DB82200042CD8 /* Persistence.swift in Sources */,
 				FF1DF53A272DC0D200042CD8 /* SearchMenuView.swift in Sources */,
@@ -217,6 +232,7 @@
 				FF1DF544272DE24600042CD8 /* KanbanViewModel.swift in Sources */,
 				FF1DF524272DB82000042CD8 /* GHKanbanApp.swift in Sources */,
 				FF1DF55A272EFCD200042CD8 /* Repository+CoreDataProperties.swift in Sources */,
+				FF1DF560272F24E600042CD8 /* RepositoryResponse.swift in Sources */,
 				FF1DF538272DC0C600042CD8 /* SearchMenuViewModel.swift in Sources */,
 				FF1DF530272DB82200042CD8 /* GHKanban.xcdatamodeld in Sources */,
 			);

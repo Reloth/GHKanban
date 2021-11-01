@@ -19,7 +19,7 @@ extension Issue {
     @NSManaged public var title: String?
     @NSManaged public var info: String?
     @NSManaged public var position: Int32
-    @NSManaged public var id: UUID?
+    @NSManaged public var idNum: Int32
     @NSManaged public var parentRepository: Repository?
     
     public var wrappedTitle: String {
